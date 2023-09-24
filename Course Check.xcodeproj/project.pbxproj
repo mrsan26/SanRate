@@ -21,6 +21,10 @@
 		19453C802AAE33A2006CDCDE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19453C7F2AAE33A2006CDCDE /* Extensions.swift */; };
 		194E08DF2AAF555400D27D22 /* UsdCourseModelOpenexchangerates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194E08DE2AAF555400D27D22 /* UsdCourseModelOpenexchangerates.swift */; };
 		194E08E22AAF67B000D27D22 /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194E08E12AAF67B000D27D22 /* Currencies.swift */; };
+		198F802F2ABCF31100AA1569 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198F802E2ABCF31100AA1569 /* BackgroundView.swift */; };
+		198F80312ABFAFF400AA1569 /* UIStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198F80302ABFAFF400AA1569 /* UIStrings.swift */; };
+		198F80352ABFB64F00AA1569 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198F80332ABFB64F00AA1569 /* SettingsController.swift */; };
+		198F80362ABFB64F00AA1569 /* SettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 198F80342ABFB64F00AA1569 /* SettingsController.xib */; };
 		19B9223D2AB07910004BF21A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 19B9223C2AB07910004BF21A /* SnapKit */; };
 		19B9223F2AB08EB1004BF21A /* UsdCourseModelMoex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B9223E2AB08EB1004BF21A /* UsdCourseModelMoex.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +45,10 @@
 		19453C7F2AAE33A2006CDCDE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		194E08DE2AAF555400D27D22 /* UsdCourseModelOpenexchangerates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsdCourseModelOpenexchangerates.swift; sourceTree = "<group>"; };
 		194E08E12AAF67B000D27D22 /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
+		198F802E2ABCF31100AA1569 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		198F80302ABFAFF400AA1569 /* UIStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStrings.swift; sourceTree = "<group>"; };
+		198F80332ABFB64F00AA1569 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		198F80342ABFB64F00AA1569 /* SettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsController.xib; sourceTree = "<group>"; };
 		19B9223E2AB08EB1004BF21A /* UsdCourseModelMoex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsdCourseModelMoex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +84,7 @@
 		191558A52AADE56B00904FE5 /* Course Check */ = {
 			isa = PBXGroup;
 			children = (
+				198F802D2ABCF2F000AA1569 /* CustomViews */,
 				194E08E02AAF677600D27D22 /* Enums */,
 				19453C7E2AAE3382006CDCDE /* Extensions */,
 				19453C7B2AAE0D42006CDCDE /* Models */,
@@ -94,6 +103,7 @@
 		191558BA2AADE5B800904FE5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				198F80322ABFB63000AA1569 /* SettingsVC */,
 				191558BF2AADE60C00904FE5 /* MainCourseController */,
 			);
 			path = Controllers;
@@ -139,8 +149,26 @@
 			isa = PBXGroup;
 			children = (
 				194E08E12AAF67B000D27D22 /* Currencies.swift */,
+				198F80302ABFAFF400AA1569 /* UIStrings.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		198F802D2ABCF2F000AA1569 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				198F802E2ABCF31100AA1569 /* BackgroundView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		198F80322ABFB63000AA1569 /* SettingsVC */ = {
+			isa = PBXGroup;
+			children = (
+				198F80332ABFB64F00AA1569 /* SettingsController.swift */,
+				198F80342ABFB64F00AA1569 /* SettingsController.xib */,
+			);
+			path = SettingsVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +240,7 @@
 				191558B32AADE56C00904FE5 /* LaunchScreen.storyboard in Resources */,
 				191558B02AADE56C00904FE5 /* Assets.xcassets in Resources */,
 				191558AE2AADE56B00904FE5 /* Main.storyboard in Resources */,
+				198F80362ABFB64F00AA1569 /* SettingsController.xib in Resources */,
 				191558BE2AADE60500904FE5 /* MainCourseController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,10 +253,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				194E08E22AAF67B000D27D22 /* Currencies.swift in Sources */,
+				198F80352ABFB64F00AA1569 /* SettingsController.swift in Sources */,
 				19453C7D2AAE0D53006CDCDE /* SymCourseModel.swift in Sources */,
+				198F802F2ABCF31100AA1569 /* BackgroundView.swift in Sources */,
 				19453C7A2AAE091B006CDCDE /* BackendAPI.swift in Sources */,
 				19453C782AAE0909006CDCDE /* NetworkManager.swift in Sources */,
 				191558A72AADE56B00904FE5 /* AppDelegate.swift in Sources */,
+				198F80312ABFAFF400AA1569 /* UIStrings.swift in Sources */,
 				191558BD2AADE60500904FE5 /* MainCourseController.swift in Sources */,
 				19B9223F2AB08EB1004BF21A /* UsdCourseModelMoex.swift in Sources */,
 				194E08DF2AAF555400D27D22 /* UsdCourseModelOpenexchangerates.swift in Sources */,

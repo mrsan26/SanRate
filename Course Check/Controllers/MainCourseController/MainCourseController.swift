@@ -22,6 +22,9 @@ class MainCourseController: UIViewController {
     @IBOutlet weak var currencyChooseButton: UIButton!
     @IBOutlet weak var rubResultLabel: UILabel!
     
+    @IBOutlet weak var rubleConvertionMainView: BackgroundView!
+    @IBOutlet weak var currencyConvertionMainView: BackgroundView!
+    
     var symCourse: Double?
     var dollarCourse: Double?
     
@@ -43,22 +46,20 @@ class MainCourseController: UIViewController {
     }
     
     private func setupUI() {
-        let symCurr = UIAction(title: "cум") { action in
+        let symCurr = UIAction(title: UIStrings.cym.rawValue) { action in
             self.choosedCurrency = .sym
             self.userCurrencyCounting()
         }
-        let usdCurr = UIAction(title: "$") { action in
+        let usdCurr = UIAction(title: UIStrings.usd.rawValue) { action in
             self.choosedCurrency = .usd
             self.userCurrencyCounting()
         }
-
-        
-            
-            
-        
         let menuElements: [UIAction] = [usdCurr, symCurr]
         let menu = UIMenu(title: "Валюта", children: menuElements)
         currencyChooseButton.menu = menu
+        
+        let settingsTopBarButton = UIBarButtonItem(title: "Настройки", style: .plain, target: self, action: #selector(settingsButtonAction))
+        navigationItem.rightBarButtonItem = settingsTopBarButton
     }
     
     private func updateRates(date: Date) {
@@ -112,19 +113,19 @@ class MainCourseController: UIViewController {
     
     private func userRubToSymCounting() {
         if self.symCourse == nil {
-            self.dollarResultLabel.text = "ошибка загрузки"
+            self.dollarResultLabel.text = UIStrings.error.rawValue
         } else {
             let symCount = (self.symCourse ?? 0) * (self.rublesTextField.text?.toDouble() ?? 1)
-            self.symResultLabel.text = "\(symCount.roundForSignsAfterDot(1).toString()) сум"
+            self.symResultLabel.text = "\(symCount.roundForSignsAfterDot(1).toString()) \(UIStrings.cym.rawValue)"
         }
     }
     
     private func userRubToUsdCounting() {
         if self.dollarCourse == nil {
-            self.dollarResultLabel.text = "ошибка загрузки"
+            self.dollarResultLabel.text = UIStrings.error.rawValue
         } else {
             let dollarCount = (self.dollarCourse ?? 0) * (self.rublesTextField.text?.toDouble() ?? 1)
-            self.dollarResultLabel.text = "\(dollarCount.roundForSignsAfterDot(2).toString()) $"
+            self.dollarResultLabel.text = "\(dollarCount.roundForSignsAfterDot(2).toString()) \(UIStrings.usd.rawValue)"
         }
     }
     
@@ -132,16 +133,16 @@ class MainCourseController: UIViewController {
         switch choosedCurrency {
         case .sym:
             guard let symCourse else {
-                rubResultLabel.text = "ошибка загрузки"
+                rubResultLabel.text = UIStrings.error.rawValue
                 return
             }
-            rubResultLabel.text = ((currencyTextField.text?.toDouble() ?? 1) / symCourse).roundForSignsAfterDot(2).toString() + " ₽"
+            rubResultLabel.text = ((currencyTextField.text?.toDouble() ?? 1) / symCourse).roundForSignsAfterDot(2).toString() + " \(UIStrings.rub.rawValue)"
         case .usd:
             guard let dollarCourse else {
-                rubResultLabel.text = "ошибка загрузки"
+                rubResultLabel.text = UIStrings.error.rawValue
                 return
             }
-            rubResultLabel.text = ((currencyTextField.text?.toDouble() ?? 1) / dollarCourse).roundForSignsAfterDot(2).toString() + " ₽"
+            rubResultLabel.text = ((currencyTextField.text?.toDouble() ?? 1) / dollarCourse).roundForSignsAfterDot(2).toString() + " \(UIStrings.rub.rawValue)"
         }
     }
     
@@ -156,6 +157,12 @@ class MainCourseController: UIViewController {
     
     @objc private func currencyConvertAction() {
         userCurrencyCounting()
+    }
+    
+    @objc private func settingsButtonAction() {
+        let settingVC = SettingsController(nibName: SettingsController.id, bundle: nil)
+        let settingNavVC = UINavigationController(rootViewController: settingVC)
+        present(settingNavVC, animated: true, completion: nil)
     }
     
     @IBAction func datePickerChangedAction(_ sender: Any) {
