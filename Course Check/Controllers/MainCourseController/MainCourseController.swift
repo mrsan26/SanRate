@@ -69,45 +69,75 @@ class MainCourseController: UIViewController {
         // Преобразуем дату в строку в нужном формате
         let formattedDate = dateFormatter.string(from: date)
         
-        NetworkManager().getSymRate(date: formattedDate) { symCourseModel in
-            guard let symCourseModel = symCourseModel.first else { return }
-            self.symCourse = symCourseModel.rate.toDouble()
+        if let userSymRate: Double = UserManager.read(.userSymRate) {
+            self.symCourse = userSymRate
             
             self.userRubToSymCounting()
             self.userCurrencyCounting()
-        } errorClosure: {
-            self.symCourse = nil
             
-            self.userRubToSymCounting()
-            self.userCurrencyCounting()
+            symResultLabel.textColor = .systemPink
+        } else {
+            NetworkManager().getSymRubRate(date: formattedDate) { symCourseModel in
+                guard let symCourseModel = symCourseModel.first else { return }
+                self.symCourse = symCourseModel.rate.toDouble()
+                
+                self.userRubToSymCounting()
+                self.userCurrencyCounting()
+            } errorClosure: {
+                self.symCourse = nil
+                
+                self.userRubToSymCounting()
+                self.userCurrencyCounting()
+            }
         }
         
-//        NetworkManager().getUsdRateOpenexchangerates(date: formattedDate) { usdCourseModel in
-//            self.dollarCourse = 1 / usdCourseModel.rate.rub
-//
-//            self.userRubToUsdCounting()
-//            self.userCurrencyCounting()
-//        } errorClosure: {
-//            self.dollarCourse = nil
-//
-//            self.userRubToUsdCounting()
-//            self.userCurrencyCounting()
-//        }
-        
-        NetworkManager().getUsdRateMoex(date: formattedDate) { usdCourseModelMoex in
-            if let usdCourseMoex = usdCourseModelMoex.securities.data.first?.last {
-                self.dollarCourse = 1 / usdCourseMoex
-            } else {
+        switch (UserManager.read(.usdMode) ?? 0) as Int {
+        case 0:
+            NetworkManager().getUsdRateMoex(date: formattedDate) { usdCourseModelMoex in
+                if let usdCourseMoex = usdCourseModelMoex.securities.data.first?.last {
+                    self.dollarCourse = 1 / usdCourseMoex
+                } else {
+                    self.dollarCourse = nil
+                }
+                
+                self.userRubToUsdCounting()
+                self.userCurrencyCounting()
+            } errorClosure: {
                 self.dollarCourse = nil
+                
+                self.userRubToUsdCounting()
+                self.userCurrencyCounting()
             }
-            
-            self.userRubToUsdCounting()
-            self.userCurrencyCounting()
-        } errorClosure: {
-            self.dollarCourse = nil
-            
-            self.userRubToUsdCounting()
-            self.userCurrencyCounting()
+        case 1:
+            NetworkManager().getUsdRateOpenexchangerates(date: formattedDate) { usdCourseModel in
+                self.dollarCourse = 1 / usdCourseModel.rate.rub
+
+                self.userRubToUsdCounting()
+                self.userCurrencyCounting()
+            } errorClosure: {
+                self.dollarCourse = nil
+
+                self.userRubToUsdCounting()
+                self.userCurrencyCounting()
+            }
+        case 2:
+            NetworkManager().getSymUsdRate(date: formattedDate) { symCourseModel in
+                guard let symCourseModel = symCourseModel.first else { return }
+                guard let rubSymCourse = self.symCourse else { return }
+                guard let symUsdCourse = symCourseModel.rate.toDouble() else { return }
+                self.dollarCourse = rubSymCourse / symUsdCourse
+                
+                self.userRubToUsdCounting()
+                self.userCurrencyCounting()
+            } errorClosure: {
+                self.dollarCourse = nil
+
+                self.userRubToUsdCounting()
+                self.userCurrencyCounting()
+            }
+
+        default:
+            break
         }
     }
     
@@ -162,6 +192,14 @@ class MainCourseController: UIViewController {
     @objc private func settingsButtonAction() {
         let settingVC = SettingsController(nibName: SettingsController.id, bundle: nil)
         let settingNavVC = UINavigationController(rootViewController: settingVC)
+        
+        settingVC.beforeDissapearClosure = { [weak self] in
+            guard let self else { return }
+            self.symResultLabel.textColor = .label
+            
+            self.updateRates(date: self.datePicker.date)
+        }
+        
         present(settingNavVC, animated: true, completion: nil)
     }
     

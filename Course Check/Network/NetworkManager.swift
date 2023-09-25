@@ -15,8 +15,26 @@ typealias ErrorClosure = (() -> ())
 class NetworkManager {
     private let provider = MoyaProvider<BackendApi>(plugins: [NetworkLoggerPlugin()])
     
-    func getSymRate(date: String, success: SuccessClosureArray<SymCourseModel>?, errorClosure: ErrorClosure?) {
-        provider.request(.getSymCourse(date: date)) { result in
+    func getSymRubRate(date: String, success: SuccessClosureArray<SymCourseModel>?, errorClosure: ErrorClosure?) {
+        provider.request(.getSymRubCourse(date: date)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let result = try JSONDecoder().decode([SymCourseModel].self, from: response.data)
+                    success?(result)
+                } catch let error {
+                    print(error)
+                    errorClosure?()
+                }
+            case .failure(let error):
+                print("Ошибка: \(error)")
+                errorClosure?()
+            }
+        }
+    }
+    
+    func getSymUsdRate(date: String, success: SuccessClosureArray<SymCourseModel>?, errorClosure: ErrorClosure?) {
+        provider.request(.getSymUsdCourse(date: date)) { result in
             switch result {
             case .success(let response):
                 do {

@@ -14,6 +14,7 @@
 		191558B32AADE56C00904FE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 191558B12AADE56C00904FE5 /* LaunchScreen.storyboard */; };
 		191558BD2AADE60500904FE5 /* MainCourseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191558BB2AADE60500904FE5 /* MainCourseController.swift */; };
 		191558BE2AADE60500904FE5 /* MainCourseController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 191558BC2AADE60500904FE5 /* MainCourseController.xib */; };
+		192745982AC0E9C8000BAD25 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192745972AC0E9C8000BAD25 /* UserManager.swift */; };
 		19453C752AAE08C8006CDCDE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 19453C742AAE08C8006CDCDE /* Moya */; };
 		19453C782AAE0909006CDCDE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19453C772AAE0909006CDCDE /* NetworkManager.swift */; };
 		19453C7A2AAE091B006CDCDE /* BackendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19453C792AAE091B006CDCDE /* BackendAPI.swift */; };
@@ -39,6 +40,7 @@
 		191558B42AADE56C00904FE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		191558BB2AADE60500904FE5 /* MainCourseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCourseController.swift; sourceTree = "<group>"; };
 		191558BC2AADE60500904FE5 /* MainCourseController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainCourseController.xib; sourceTree = "<group>"; };
+		192745972AC0E9C8000BAD25 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		19453C772AAE0909006CDCDE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		19453C792AAE091B006CDCDE /* BackendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPI.swift; sourceTree = "<group>"; };
 		19453C7C2AAE0D53006CDCDE /* SymCourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymCourseModel.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		191558A52AADE56B00904FE5 /* Course Check */ = {
 			isa = PBXGroup;
 			children = (
+				192745962AC0E9B9000BAD25 /* Managers */,
 				198F802D2ABCF2F000AA1569 /* CustomViews */,
 				194E08E02AAF677600D27D22 /* Enums */,
 				19453C7E2AAE3382006CDCDE /* Extensions */,
@@ -116,6 +119,14 @@
 				191558BC2AADE60500904FE5 /* MainCourseController.xib */,
 			);
 			path = MainCourseController;
+			sourceTree = "<group>";
+		};
+		192745962AC0E9B9000BAD25 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				192745972AC0E9C8000BAD25 /* UserManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		19453C762AAE08F7006CDCDE /* Network */ = {
@@ -254,6 +265,7 @@
 			files = (
 				194E08E22AAF67B000D27D22 /* Currencies.swift in Sources */,
 				198F80352ABFB64F00AA1569 /* SettingsController.swift in Sources */,
+				192745982AC0E9C8000BAD25 /* UserManager.swift in Sources */,
 				19453C7D2AAE0D53006CDCDE /* SymCourseModel.swift in Sources */,
 				198F802F2ABCF31100AA1569 /* BackgroundView.swift in Sources */,
 				19453C7A2AAE091B006CDCDE /* BackendAPI.swift in Sources */,

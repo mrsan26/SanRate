@@ -85,7 +85,7 @@
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NE4-GF-1gA">
                                     <rect key="frame" x="16" y="23" width="137.5" height="34"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="₽" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9b-SK-4CZ">
                                     <rect key="frame" x="159.5" y="28" width="13" height="24"/>
@@ -121,7 +121,7 @@
                                         <constraint firstAttribute="height" constant="40" id="neh-j7-O6J"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CKY-Lp-0X0">
                                     <rect key="frame" x="115.5" y="16" width="57" height="40"/>

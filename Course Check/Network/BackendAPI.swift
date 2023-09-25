@@ -11,7 +11,8 @@ import Moya
 //http://iss.moex.com/iss/statistics/engines/futures/markets/indicativerates/securities/USD/RUB.json?from=2023-09-12&till=2023-09-12&iss.meta=off&iss.only=history&securities.columns=rate
 
 enum BackendApi {
-    case getSymCourse(date: String)
+    case getSymRubCourse(date: String)
+    case getSymUsdCourse(date: String)
     case getUsdCourseOpenexchangerates(date: String)
     case getUsdCourseMoex(date: String)
 }
@@ -19,8 +20,10 @@ enum BackendApi {
 extension BackendApi: TargetType {
     var baseURL: URL {
         switch self {
-        case .getSymCourse:
+        case .getSymRubCourse:
             return URL(string: "https://cbu.uz/ru/arkhiv-kursov-valyut/json/RUB/")!
+        case .getSymUsdCourse:
+            return URL(string: "https://cbu.uz/ru/arkhiv-kursov-valyut/json/USD/")!
         case .getUsdCourseOpenexchangerates:
             return URL(string: "https://openexchangerates.org/api/historical/")!
         case .getUsdCourseMoex:
@@ -30,7 +33,9 @@ extension BackendApi: TargetType {
     
     var path: String {
         switch self {
-        case .getSymCourse(let date):
+        case .getSymRubCourse(let date):
+            return "\(date)/"
+        case .getSymUsdCourse(let date):
             return "\(date)/"
         case .getUsdCourseOpenexchangerates(date: let date):
             return "\(date).json"
@@ -41,7 +46,9 @@ extension BackendApi: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .getSymCourse:
+        case .getSymRubCourse:
+            return .get
+        case .getSymUsdCourse:
             return .get
         case .getUsdCourseOpenexchangerates:
             return .get
@@ -62,7 +69,9 @@ extension BackendApi: TargetType {
     var params: [String: Any]? {
         var params = [String: Any]()
         switch self {
-        case .getSymCourse:
+        case .getSymRubCourse:
+            break
+        case .getSymUsdCourse:
             break
         case .getUsdCourseOpenexchangerates:
             params["app_id"] = "d6659a4f3cd445969e400b6e6905c12e"
@@ -80,7 +89,9 @@ extension BackendApi: TargetType {
     
     var encoding: ParameterEncoding {
         switch self {
-        case .getSymCourse:
+        case .getSymRubCourse:
+            return URLEncoding.queryString
+        case .getSymUsdCourse:
             return URLEncoding.queryString
         case .getUsdCourseOpenexchangerates:
             return URLEncoding.queryString

@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsController" customModule="Course_Check" customModuleProvider="target">
             <connections>
+                <outlet property="usdRateModeSegment" destination="EBm-IW-0l1" id="QVt-XY-fwX"/>
+                <outlet property="userSymRateTextField" destination="C1Y-Eo-7Yo" id="63a-Xv-D7k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,14 +35,14 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="не задано" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C1Y-Eo-7Yo">
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="не задано" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="C1Y-Eo-7Yo">
                                     <rect key="frame" x="143" y="47" width="96" height="34"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="96" id="Vlj-cg-zUZ"/>
                                         <constraint firstAttribute="height" constant="34" id="eal-mg-mqv"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 </textField>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -66,6 +68,9 @@
                                         <segment title="Open Exchange"/>
                                         <segment title="Через сум"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="updateUsdMode:" destination="-1" eventType="valueChanged" id="nNm-Hd-0zZ"/>
+                                    </connections>
                                 </segmentedControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Курс доллара" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gx-RM-yM9">
                                     <rect key="frame" x="16" y="10" width="350" height="27"/>
