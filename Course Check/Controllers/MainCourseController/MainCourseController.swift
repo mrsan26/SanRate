@@ -29,6 +29,7 @@ class MainCourseController: UIViewController {
     var dollarCourse: Double?
     
     var choosedCurrency: Currencies = .usd
+    @Published var usdMode: Int = UserManager.read(.usdMode) ?? 0
     
     private(set) var cancellables: Set<AnyCancellable> = []
     
@@ -38,7 +39,7 @@ class MainCourseController: UIViewController {
         
         self.title = "Курсы"
         setupUI()
-//        binding()
+        binding()
         updateRates(date: Date())
         
         rublesTextField.addTarget(self, action: #selector(rubleConvertAction), for: .editingChanged)
@@ -60,6 +61,11 @@ class MainCourseController: UIViewController {
         
         let settingsTopBarButton = UIBarButtonItem(title: "Настройки", style: .plain, target: self, action: #selector(settingsButtonAction))
         navigationItem.rightBarButtonItem = settingsTopBarButton
+        
+        let labels = [rubResultLabel, dollarResultLabel, symResultLabel]
+        labels.forEach { label in
+            label?.text = UIStrings.error.rawValue
+        }
     }
     
     private func updateRates(date: Date) {
@@ -74,8 +80,6 @@ class MainCourseController: UIViewController {
             
             self.userRubToSymCounting()
             self.userCurrencyCounting()
-            
-            symResultLabel.textColor = .systemPink
         } else {
             NetworkManager().getSymRubRate(date: formattedDate) { symCourseModel in
                 guard let symCourseModel = symCourseModel.first else { return }
@@ -91,7 +95,7 @@ class MainCourseController: UIViewController {
             }
         }
         
-        switch (UserManager.read(.usdMode) ?? 0) as Int {
+        switch usdMode {
         case 0:
             NetworkManager().getUsdRateMoex(date: formattedDate) { usdCourseModelMoex in
                 if let usdCourseMoex = usdCourseModelMoex.securities.data.first?.last {
@@ -177,15 +181,25 @@ class MainCourseController: UIViewController {
     }
     
     private func binding() {
-        
+        $usdMode
+            .sink { usdMode in
+                if usdMode == 2 {
+                    self.symResultLabel.textColor = .systemPink
+                } else {
+                    self.symResultLabel.textColor = .label
+                }
+        }
+            .store(in: &cancellables)
     }
     
     @objc private func rubleConvertAction() {
+        rublesTextField.text = rublesTextField.text?.replacingOccurrences(of: ",", with: ".")
         userRubToSymCounting()
         userRubToUsdCounting()
     }
     
     @objc private func currencyConvertAction() {
+        currencyTextField.text = currencyTextField.text?.replacingOccurrences(of: ",", with: ".")
         userCurrencyCounting()
     }
     
@@ -195,8 +209,7 @@ class MainCourseController: UIViewController {
         
         settingVC.beforeDissapearClosure = { [weak self] in
             guard let self else { return }
-            self.symResultLabel.textColor = .label
-            
+            self.usdMode = UserManager.read(.usdMode) ?? 0
             self.updateRates(date: self.datePicker.date)
         }
         

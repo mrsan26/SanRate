@@ -39,6 +39,7 @@ class SettingsController: UIViewController {
     }
     
     @objc private func updateUserSymRate() {
+        userSymRateTextField.text = userSymRateTextField.text?.replacingOccurrences(of: ",", with: ".")
         guard let userText = userSymRateTextField.text else { return }
         if let userTextInt = userText.toDouble() {
             UserManager.write(value: userTextInt, for: .userSymRate)
