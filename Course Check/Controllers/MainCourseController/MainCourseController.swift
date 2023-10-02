@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 import SnapKit
+import CheesyChart
 
 class MainCourseController: UIViewController {
 
@@ -25,11 +27,13 @@ class MainCourseController: UIViewController {
     @IBOutlet weak var rubleConvertionMainView: BackgroundView!
     @IBOutlet weak var currencyConvertionMainView: BackgroundView!
     
+    @IBOutlet weak var usdMoexChartView: UIView!
+    
     var symCourse: Double?
     var dollarCourse: Double?
     
     var choosedCurrency: Currencies = .usd
-    @Published var usdMode: Int = UserManager.read(.usdMode) ?? 0
+    var usdMode: Int = UserManager.read(.usdMode) ?? 0
     
     private(set) var cancellables: Set<AnyCancellable> = []
     
@@ -44,6 +48,14 @@ class MainCourseController: UIViewController {
         
         rublesTextField.addTarget(self, action: #selector(rubleConvertAction), for: .editingChanged)
         currencyTextField.addTarget(self, action: #selector(currencyConvertAction), for: .editingChanged)
+    }
+    
+    private func checkUserSymUI() {
+        if UserManager.read(.userSymRate) as Double? != nil {
+            symResultLabel.textColor = .systemPink
+        } else {
+            symResultLabel.textColor = .label
+        }
     }
     
     private func setupUI() {
@@ -65,6 +77,49 @@ class MainCourseController: UIViewController {
         let labels = [rubResultLabel, dollarResultLabel, symResultLabel]
         labels.forEach { label in
             label?.text = UIStrings.error.rawValue
+        }
+        
+        checkUserSymUI()
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.getMoexRangeRates { rates in
+                guard let rates else { return }
+                
+                DispatchQueue.main.async {
+                    let setupChart = SetupChart(
+                        data: (rates),
+                        forCurrency: false,
+                        label: " RUB",
+                        showChartHeader: false,
+                        chartWidth: self.usdMoexChartView.frame.width,
+                        chartHeight: self.usdMoexChartView.frame.height,
+                        animateChart: true,
+                        startAnimationAfterAppeariance: 0.4,
+                        chartAnimationDuration: 1,
+                        chartBackground: .cb4,
+                        chartBackgroundColor: Color(UIColor.systemBackground).opacity(0),
+                        showYAxiesStats: true,
+                        yAxiesStatsColor: .gray,
+                        yAxiesStatsAlignment: .leading,
+                        chartLineColorOnHigh: .blue,
+                        showShadow1: true,
+                        chartPriceLabelColor: .clear,
+                        chartPriceLabelFontColor: .gray
+                    )
+                    
+                    let chart = CheesyChart(setup: setupChart)
+                    
+                    // Создайте экземпляр UIHostingController и установите его в качестве дочернего контроллера
+                    let hostingController = HostingController(rootView: chart)
+                    self.addChild(hostingController)
+                    
+                    // Установите размеры и добавьте представление в иерархипредставлений
+                    hostingController.view.frame = CGRect(x: 0, y: 0, width: self.usdMoexChartView.frame.width, height: self.usdMoexChartView.frame.height)
+                    self.usdMoexChartView.addSubview(hostingController.view)
+                    
+                    hostingController.didMove(toParent: self)
+                }
+            }
         }
     }
     
@@ -97,7 +152,7 @@ class MainCourseController: UIViewController {
         
         switch usdMode {
         case 0:
-            NetworkManager().getUsdRateMoex(date: formattedDate) { usdCourseModelMoex in
+            NetworkManager().getUsdRateMoex(fromDate: formattedDate, tillDate: formattedDate) { usdCourseModelMoex in
                 if let usdCourseMoex = usdCourseModelMoex.securities.data.first?.last {
                     self.dollarCourse = 1 / usdCourseMoex
                 } else {
@@ -145,6 +200,30 @@ class MainCourseController: UIViewController {
         }
     }
     
+    private func getMoexRangeRates(succesClosure: (([Double]?) -> ())?) {
+        let todayDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let formattedTodayDate = dateFormatter.string(from: todayDate)
+        
+        guard let lastWeek = Calendar.current.date(byAdding: .month, value: -1, to: todayDate) else { return }
+        let formattedlastWeekDate = dateFormatter.string(from: lastWeek)
+        
+        var rates: [Double]? = []
+        NetworkManager().getUsdRateMoex(fromDate: formattedlastWeekDate, tillDate: formattedTodayDate) { usdCourseModelMoex in
+            let ratesMatrix = usdCourseModelMoex.securities.data
+            
+            ratesMatrix.forEach { rateInArray in
+                guard let rate = rateInArray.first else { return }
+                rates!.append(rate)
+            }
+            succesClosure?(rates)
+        } errorClosure: {
+            rates = nil
+            succesClosure?(rates)
+        }
+    }
+    
     private func userRubToSymCounting() {
         if self.symCourse == nil {
             self.dollarResultLabel.text = UIStrings.error.rawValue
@@ -181,15 +260,6 @@ class MainCourseController: UIViewController {
     }
     
     private func binding() {
-        $usdMode
-            .sink { usdMode in
-                if usdMode == 2 {
-                    self.symResultLabel.textColor = .systemPink
-                } else {
-                    self.symResultLabel.textColor = .label
-                }
-        }
-            .store(in: &cancellables)
     }
     
     @objc private func rubleConvertAction() {
@@ -210,6 +280,7 @@ class MainCourseController: UIViewController {
         settingVC.beforeDissapearClosure = { [weak self] in
             guard let self else { return }
             self.usdMode = UserManager.read(.usdMode) ?? 0
+            self.checkUserSymUI()
             self.updateRates(date: self.datePicker.date)
         }
         

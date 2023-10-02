@@ -28,6 +28,8 @@
 		198F80362ABFB64F00AA1569 /* SettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 198F80342ABFB64F00AA1569 /* SettingsController.xib */; };
 		19B9223D2AB07910004BF21A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 19B9223C2AB07910004BF21A /* SnapKit */; };
 		19B9223F2AB08EB1004BF21A /* UsdCourseModelMoex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B9223E2AB08EB1004BF21A /* UsdCourseModelMoex.swift */; };
+		19D10FBC2AC502F200BF5D2C /* CheesyChart in Frameworks */ = {isa = PBXBuildFile; productRef = 19D10FBB2AC502F200BF5D2C /* CheesyChart */; };
+		19D10FBE2AC505B400BF5D2C /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D10FBD2AC505B400BF5D2C /* HostingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,7 @@
 		198F80332ABFB64F00AA1569 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		198F80342ABFB64F00AA1569 /* SettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsController.xib; sourceTree = "<group>"; };
 		19B9223E2AB08EB1004BF21A /* UsdCourseModelMoex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsdCourseModelMoex.swift; sourceTree = "<group>"; };
+		19D10FBD2AC505B400BF5D2C /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 			files = (
 				19453C752AAE08C8006CDCDE /* Moya in Frameworks */,
 				19B9223D2AB07910004BF21A /* SnapKit in Frameworks */,
+				19D10FBC2AC502F200BF5D2C /* CheesyChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +112,7 @@
 			children = (
 				198F80322ABFB63000AA1569 /* SettingsVC */,
 				191558BF2AADE60C00904FE5 /* MainCourseController */,
+				19D10FBD2AC505B400BF5D2C /* HostingController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 			packageProductDependencies = (
 				19453C742AAE08C8006CDCDE /* Moya */,
 				19B9223C2AB07910004BF21A /* SnapKit */,
+				19D10FBB2AC502F200BF5D2C /* CheesyChart */,
 			);
 			productName = "Course Check";
 			productReference = 191558A32AADE56B00904FE5 /* Course Check.app */;
@@ -233,6 +239,7 @@
 			packageReferences = (
 				19453C732AAE08C8006CDCDE /* XCRemoteSwiftPackageReference "Moya" */,
 				19B9223B2AB07910004BF21A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				19D10FBA2AC502F200BF5D2C /* XCRemoteSwiftPackageReference "CheesyChart" */,
 			);
 			productRefGroup = 191558A42AADE56B00904FE5 /* Products */;
 			projectDirPath = "";
@@ -263,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19D10FBE2AC505B400BF5D2C /* HostingController.swift in Sources */,
 				194E08E22AAF67B000D27D22 /* Currencies.swift in Sources */,
 				198F80352ABFB64F00AA1569 /* SettingsController.swift in Sources */,
 				192745982AC0E9C8000BAD25 /* UserManager.swift in Sources */,
@@ -514,6 +522,14 @@
 				kind = branch;
 			};
 		};
+		19D10FBA2AC502F200BF5D2C /* XCRemoteSwiftPackageReference "CheesyChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adri567/CheesyChart.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -526,6 +542,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 19B9223B2AB07910004BF21A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		19D10FBB2AC502F200BF5D2C /* CheesyChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 19D10FBA2AC502F200BF5D2C /* XCRemoteSwiftPackageReference "CheesyChart" */;
+			productName = CheesyChart;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

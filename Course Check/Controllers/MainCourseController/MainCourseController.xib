@@ -21,6 +21,7 @@
                 <outlet property="rubleConvertionMainView" destination="icr-TV-oa7" id="x7G-LK-GaM"/>
                 <outlet property="rublesTextField" destination="NE4-GF-1gA" id="fab-T9-gND"/>
                 <outlet property="symResultLabel" destination="tox-vI-gWK" id="pTs-F7-Cna"/>
+                <outlet property="usdMoexChartView" destination="jqg-jC-pqj" id="gHR-00-bQT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="nXI-fj-Cco">
-                    <rect key="frame" x="16" y="54" width="382" height="234"/>
+                    <rect key="frame" x="16" y="64" width="382" height="419"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CsP-Le-UAi">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
@@ -82,7 +83,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NE4-GF-1gA">
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="10" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="NE4-GF-1gA">
                                     <rect key="frame" x="16" y="23" width="137.5" height="34"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -115,7 +116,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDs-vD-rng" customClass="BackgroundView" customModule="Course_Check" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="162" width="382" height="72"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WQ6-zz-pML">
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="10" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="WQ6-zz-pML">
                                     <rect key="frame" x="16" y="16" width="93.5" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="neh-j7-O6J"/>
@@ -166,6 +167,37 @@
                                 <constraint firstAttribute="bottom" secondItem="WQ6-zz-pML" secondAttribute="bottom" constant="16" id="rHz-JD-OB8"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b7X-KD-AuY">
+                            <rect key="frame" x="0.0" y="250" width="382" height="169"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqg-jC-pqj">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="120"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="120" id="ZYq-nY-0Ae"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD -&gt; RUB последний месяц MOEX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="0MB-qF-RNF">
+                                    <rect key="frame" x="16" y="136" width="350" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="V1e-iT-vyO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="0MB-qF-RNF" secondAttribute="bottom" constant="16" id="B8F-4x-ico"/>
+                                <constraint firstAttribute="trailing" secondItem="jqg-jC-pqj" secondAttribute="trailing" id="FQG-Ko-EYO"/>
+                                <constraint firstAttribute="trailing" secondItem="0MB-qF-RNF" secondAttribute="trailing" constant="16" id="LYh-4C-tWE"/>
+                                <constraint firstItem="0MB-qF-RNF" firstAttribute="leading" secondItem="b7X-KD-AuY" secondAttribute="leading" constant="16" id="Nef-Y6-XSn"/>
+                                <constraint firstItem="0MB-qF-RNF" firstAttribute="top" secondItem="jqg-jC-pqj" secondAttribute="bottom" constant="16" id="Quy-RY-qRT"/>
+                                <constraint firstItem="jqg-jC-pqj" firstAttribute="leading" secondItem="b7X-KD-AuY" secondAttribute="leading" id="ihG-EO-ziW"/>
+                                <constraint firstItem="jqg-jC-pqj" firstAttribute="top" secondItem="b7X-KD-AuY" secondAttribute="top" id="sDt-0n-rrl"/>
+                            </constraints>
+                        </view>
                     </subviews>
                 </stackView>
             </subviews>
@@ -175,7 +207,7 @@
                 <constraint firstItem="nXI-fj-Cco" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="DWJ-uP-zD9"/>
                 <constraint firstItem="XuK-qO-luh" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Nbt-F0-XIe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nXI-fj-Cco" secondAttribute="trailing" constant="16" id="ZAd-yg-M0K"/>
-                <constraint firstItem="nXI-fj-Cco" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="6" id="lsE-AW-9Xm"/>
+                <constraint firstItem="nXI-fj-Cco" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="lsE-AW-9Xm"/>
             </constraints>
             <point key="canvasLocation" x="139.13043478260872" y="19.419642857142858"/>
         </view>

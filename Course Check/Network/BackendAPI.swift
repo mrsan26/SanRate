@@ -14,7 +14,7 @@ enum BackendApi {
     case getSymRubCourse(date: String)
     case getSymUsdCourse(date: String)
     case getUsdCourseOpenexchangerates(date: String)
-    case getUsdCourseMoex(date: String)
+    case getUsdCourseMoex(fromDate: String, tillDate: String)
 }
 
 extension BackendApi: TargetType {
@@ -77,9 +77,9 @@ extension BackendApi: TargetType {
             params["app_id"] = "d6659a4f3cd445969e400b6e6905c12e"
             params["base"] = "USD"
             params["symbols"] = "RUB"
-        case .getUsdCourseMoex(date: let date):
-            params["from"] = date
-            params["till"] = date
+        case .getUsdCourseMoex(fromDate: let fromDate, tillDate: let tillDate):
+            params["from"] = fromDate
+            params["till"] = tillDate
             params["iss.meta"] = "off"
             params["iss.only"] = "history"
             params["securities.columns"] = "rate"

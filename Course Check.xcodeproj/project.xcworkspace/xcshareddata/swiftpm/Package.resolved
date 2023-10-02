@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "cheesychart",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adri567/CheesyChart.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6cc60b9104f75979c5a4b63fd4cf660d30a63746"
+      }
+    },
+    {
       "identity" : "moya",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Moya/Moya.git",

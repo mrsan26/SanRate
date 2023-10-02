@@ -69,8 +69,8 @@ class NetworkManager {
         }
     }
     
-    func getUsdRateMoex(date: String, success: SuccessClosure<UsdCourseModelMoex>?, errorClosure: ErrorClosure?) {
-        provider.request(.getUsdCourseMoex(date: date)) { result in
+    func getUsdRateMoex(fromDate: String, tillDate: String, success: SuccessClosure<UsdCourseModelMoex>?, errorClosure: ErrorClosure?) {
+        provider.request(.getUsdCourseMoex(fromDate: fromDate, tillDate: tillDate)) { result in
             switch result {
             case .success(let response):
                 do {
